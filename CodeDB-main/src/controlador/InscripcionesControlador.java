@@ -51,6 +51,11 @@ public class InscripcionesControlador {
         SociosModelo socio = vistaInsc.solicitarSocio();
         ExcursionesModelo excursion = vistaInsc.solicitarExcursion();
         LocalDate fechaInscripcion = LocalDate.now();
+        // Verificar si la fecha de hoy es posterior a la fecha de la excursión
+        if (fechaInscripcion.isAfter(excursion.getFecha())) {
+            System.out.println("No se puede realizar la inscripción porque la fecha de hoy es posterior a la fecha de la excursión.");
+            return;
+        }
         if (socio == null) {
             //Si el socio no existe solicitamos sus datos para añadirlo a la base de datos
             int opcion = vistaInsc.agregarSocioInsc();

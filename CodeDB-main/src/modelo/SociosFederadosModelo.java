@@ -1,13 +1,10 @@
 package modelo;
-
-import modelo.SociosModelo;
-
 public class SociosFederadosModelo extends SociosModelo {
     //Atributos
     private String nif;
     private FederacionesModelo federacion;
-    private int descuento_cuota;
-    private int descuento_exc;
+    private double descuento_cuota;
+    private double descuento_exc;
 
     //Constructor
 
@@ -15,8 +12,8 @@ public class SociosFederadosModelo extends SociosModelo {
         super(nombre);
         this.nif = nif;
         this.federacion = federacion;
-        this.descuento_cuota = 5;
-        this.descuento_exc = 10;
+        this.descuento_cuota = 0.05;
+        this.descuento_exc = 0.1;
     }
 
 
@@ -38,19 +35,19 @@ public class SociosFederadosModelo extends SociosModelo {
         this.federacion = federacion;
     }
 
-    public int getDescuento_cuota() {
+    public double getDescuento_cuota() {
         return descuento_cuota;
     }
 
-    public void setDescuento_cuota(int descuento_cuota) {
+    public void setDescuento_cuota(double descuento_cuota) {
         this.descuento_cuota = descuento_cuota;
     }
 
-    public int getDescuento_exc() {
+    public double getDescuento_exc() {
         return descuento_exc;
     }
 
-    public void setDescuento_exc(int descuento_exc) {
+    public void setDescuento_exc(double descuento_exc) {
         this.descuento_exc = descuento_exc;
     }
 }

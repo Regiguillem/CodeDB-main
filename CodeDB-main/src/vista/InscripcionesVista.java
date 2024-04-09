@@ -3,13 +3,10 @@ package vista;
 import controlador.ExcursionesControlador;
 import controlador.SociosControlador;
 import modelo.ExcursionesModelo;
-import modelo.InscripcionesModelo;
 import modelo.SociosModelo;
-import vista.SociosVista;
+
 import modelo.Datos;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InscripcionesVista {
@@ -49,7 +46,7 @@ public class InscripcionesVista {
         System.out.println("Seleccione la excursión: ");
         excursionesControlador.mostrarExcursiones(); //Mostramos la lista de excursiones
         System.out.println("Ingrese el código de la excursión: ");
-        String codigoEx = scanner.nextLine();
+        String codigoEx = scanner.nextLine().toUpperCase();
         return excursionesControlador.obtenerExcursionPorCodigo(codigoEx);
     }
 

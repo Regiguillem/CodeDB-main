@@ -7,11 +7,14 @@ public class SociosModelo {
     private String nombre;
     private SeguroModelo seguro;
 
+    private double cuotaMensual;
+
     //Constructor
 
     public SociosModelo(String nombre) {
         this.n_socio = ultimoNumeroSocio++;
         this.nombre = nombre;
+        this.cuotaMensual = 50;
     }
 
     //Getters y Setters
@@ -38,5 +41,13 @@ public class SociosModelo {
 
     public void setSeguro(SeguroModelo seguro) {
         this.seguro = seguro;
+    }
+
+    public double getCuotaMensual() {
+        return cuotaMensual;
+    }
+
+    public void setCuotaMensual(double cuotaMensual) {
+        this.cuotaMensual = cuotaMensual;
     }
 }

@@ -28,7 +28,7 @@ public class ExcursionesVista {
     public ExcursionesModelo DatosExcursion() {
         System.out.println("Añadiendo excursión...");
         System.out.println("Introduzca el código:");
-        String codigo = scanner.next();
+        String codigo = scanner.next().toUpperCase();
         scanner.nextLine();
         System.out.println("Introduzca la descripción:");
         String descripcion = scanner.nextLine();

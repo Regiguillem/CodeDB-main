@@ -40,8 +40,10 @@ public class SociosControlador {
                     break;
                 case 6:
                     vistaSoc.mostrarSociosPorTipo();
+                    break;
                 case 7:
                     mostrarFacturaMensualFiltroSocio();
+                    break;
                 case 0:
                     System.out.println("Saliendo del menú de Gestión de Socios...");
                     return true;
@@ -109,7 +111,7 @@ public class SociosControlador {
     public void listarSociosEst(){
         System.out.println("Lista de Socios Estándar Disponibles:");
         for (SocioEstandarModelo socio : datos.getSociosEst()) {
-            System.out.println("Número de socio: " + socio.getN_socio() + ", Nombre: " + socio.getNombre());
+            System.out.println("Número de socio: " + socio.getN_socio() + ", Nombre: " + socio.getNombre()+ ", Tipo de Seguro: " + socio.getSeguro().getTipo());
         }
     }
 
@@ -279,11 +281,27 @@ public class SociosControlador {
         System.out.println("Fecha: " + LocalDate.now());
         System.out.println("Cuota Mensual: " + totalCuotaMensual);
         System.out.println("Total Excursiones: " + totalExcursiones);
+        // Ajustar el total a pagar si el socio es de tipo SocioEstandarModelo
+        if (socio instanceof SocioEstandarModelo) {
+            SocioEstandarModelo socioEstandar = (SocioEstandarModelo) socio;
+            totalPagar += socioEstandar.getSeguro().getPrecio();
+            System.out.println("Precio del seguro: " + socioEstandar.getSeguro().getPrecio());
+        }
+
+        // Mostrar descuentos aplicados para socios Federados e Infantiles
+        if (socio instanceof SociosFederadosModelo) {
+            System.out.println("Descuento en la cuota aplicado: " + ((SociosFederadosModelo) socio).getDescuento_cuota() * 100 + "%");
+            System.out.println("Descuento aplicado en las excursiones: " + ((SociosFederadosModelo) socio).getDescuento_exc() * 100 + "%");
+        } else if (socio instanceof SocioInfantilModelo) {
+            System.out.println("Descuento en la cuota aplicado: " + ((SocioInfantilModelo) socio).getDescuento_cuota() * 100 + "%");
+        }
+        System.out.println("-----------------------------");
         System.out.println("Total a Pagar: " + totalPagar);
+        System.out.println("-----------------------------");
     }
 
     private double calcularCuotaMensual(SociosModelo socio) {
-        double cuotaBaseMensual = socio.getSeguro().getPrecio();
+        double cuotaBaseMensual = socio.getCuotaMensual();
         double descuentoCuota = 0;
 
         if (socio instanceof SociosFederadosModelo) {

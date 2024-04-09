@@ -1,7 +1,5 @@
 package modelo;
 
-import modelo.SociosModelo;
-
 import java.time.LocalDate;
 
 public class FacturaModelo {

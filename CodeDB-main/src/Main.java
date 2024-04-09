@@ -1,12 +1,10 @@
 import controlador.*;
-import modelo.Datos;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        Datos datos = Datos.getInstance();
         Scanner scanner = new Scanner(System.in);
 
         int opcion;

@@ -1,5 +1,5 @@
 package vista;
-import controlador.SociosControlador;
+
 import modelo.*;
 
 import java.util.ArrayList;
