@@ -55,13 +55,12 @@ public class SociosControlador {
         vistaSoc.mostrarMensaje("Añadiendo Socio Estándar...");
 
         // Solicitar la información del socio al usuario
-        int n_socio = vistaSoc.solicitarNumeroSocio();
         String nombre = vistaSoc.solicitarNombreSocio();
         String nif = vistaSoc.solicitarNifSocio();
         SeguroModelo seguro = vistaSoc.solicitarSeguroSocio();
 
         // Crear una instancia de SocioEstandarModelo con la información proporcionada por el usuario
-        SocioEstandarModelo socioEstandar = new SocioEstandarModelo(n_socio, nombre, nif, seguro);
+        SocioEstandarModelo socioEstandar = new SocioEstandarModelo(nombre, nif, seguro);
 
         // Agregar el socio a la lista de socios
         datos.getSociosEst().add(socioEstandar);
@@ -126,13 +125,12 @@ public class SociosControlador {
         vistaSoc.mostrarMensaje("Añadiendo Socio Federado...");
 
         // Solicitar la información del socio federado al usuario
-        int n_socio = vistaSoc.solicitarNumeroSocio();
         String nombre = vistaSoc.solicitarNombreSocio();
         String nif = vistaSoc.solicitarNifSocio();
         FederacionesModelo federacionSocio = solicitarFederacion();
 
         // Crear una instancia de SociosFederadosModelo con la información proporcionada por el usuario
-        SociosFederadosModelo socioFederado = new SociosFederadosModelo(n_socio, nombre, nif, federacionSocio);
+        SociosFederadosModelo socioFederado = new SociosFederadosModelo(nombre, nif, federacionSocio);
 
         // Agregar el socio federado a la lista de socios
 
@@ -166,7 +164,6 @@ public class SociosControlador {
         vistaSoc.mostrarMensaje("Añadiendo Socio Infantil...");
 
         // Solicitar la información del socio infantil al usuario
-        int n_socio = vistaSoc.solicitarNumeroSocio();
         String nombre = vistaSoc.solicitarNombreSocio();
         int n_socioPadreMadre = vistaSoc.solicitarNumeroSocioPadreMadre();
 
@@ -176,7 +173,7 @@ public class SociosControlador {
         // Verificar si se encontró el socio padre o madre
         if (socioPadreMadre != null) {
             // Crear una instancia de SocioInfantilModelo con la información proporcionada por el usuario
-            SocioInfantilModelo socioInfantil = new SocioInfantilModelo(n_socio, nombre, socioPadreMadre);
+            SocioInfantilModelo socioInfantil = new SocioInfantilModelo(nombre, socioPadreMadre);
 
             // Agregar el socio infantil a la lista de socios infantiles
             datos.getSociosInf().add(socioInfantil);

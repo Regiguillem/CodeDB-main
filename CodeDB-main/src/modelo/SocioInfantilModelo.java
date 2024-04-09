@@ -9,8 +9,8 @@ public class SocioInfantilModelo extends SociosModelo {
 
     //Constructor
 
-    public SocioInfantilModelo(int n_socio, String nombre, SociosModelo n_socioPadreMadre) {
-        super(n_socio, nombre);
+    public SocioInfantilModelo(String nombre, SociosModelo n_socioPadreMadre) {
+        super(nombre);
         this.n_socioPadreMadre = n_socioPadreMadre;
         this.descuento_cuota = 50;
     }

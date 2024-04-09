@@ -24,7 +24,9 @@ public class SociosVista {
         System.out.println("7. Mostrar factura mensual de socio:");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opción: ");
-        return scanner.nextInt();
+        int opcion = scanner.nextInt();
+        scanner.nextLine();
+        return opcion;
     }
 
     public int solicitarNuevoTipoSeguro() {
@@ -150,7 +152,7 @@ public class SociosVista {
         } else {
             System.out.println("Lista de socios federados:");
             for (SociosFederadosModelo socio : listaFederada) {
-                System.out.println("Nombre: " + socio.getNombre() + ", NIF: " + socio.getNif() + ", Código Federación: " + socio.getFederacion().getNombre());
+                System.out.println("Número de socio: " + socio.getN_socio() + ", Nombre: " + socio.getNombre() + ", NIF: " + socio.getNif() + ", Código Federación: " + socio.getFederacion().getNombre());
             }
         }
     }
@@ -161,7 +163,7 @@ public class SociosVista {
         } else {
             System.out.println("Lista de socios infantiles:");
             for (SocioInfantilModelo socio : listaInfantil) {
-                System.out.println("Nombre: " + socio.getNombre() + ", Socio Padre/Madre: " + socio.getN_socioPadreMadre().getNombre());
+                System.out.println("Número de socio: " + socio.getN_socio() + ", Nombre: " + socio.getNombre() + ", Socio Padre/Madre: " + socio.getN_socioPadreMadre().getNombre());
             }
         }
     }

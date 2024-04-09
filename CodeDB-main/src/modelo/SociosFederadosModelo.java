@@ -11,8 +11,8 @@ public class SociosFederadosModelo extends SociosModelo {
 
     //Constructor
 
-    public SociosFederadosModelo(int n_socio, String nombre, String nif, FederacionesModelo federacion) {
-        super(n_socio, nombre);
+    public SociosFederadosModelo(String nombre, String nif, FederacionesModelo federacion) {
+        super(nombre);
         this.nif = nif;
         this.federacion = federacion;
         this.descuento_cuota = 5;

@@ -7,8 +7,8 @@ public class SocioEstandarModelo extends SociosModelo {
 
     //Constructor
 
-    public SocioEstandarModelo(int n_socio, String nombre, String nif, SeguroModelo seguro) {
-        super(n_socio, nombre);
+    public SocioEstandarModelo(String nombre, String nif, SeguroModelo seguro) {
+        super(nombre);
         this.nif = nif;
         this.seguro = seguro;
     }

@@ -62,32 +62,6 @@ public class InscripcionesVista {
         return sociosControlador.obtenerSocioPorCodigo(n_socio);
     }
 
-
-
-    // Método para solicitar fechas para filtrar inscripciones
-    public LocalDate[] fechasFiltroInscripciones() {
-        LocalDate[] fechas = new LocalDate[2];
-        System.out.println("Mostrar Inscripciones con filtro por fecha");
-        System.out.println("Introduzca la fecha de inicio (YYYY-MM-DD):");
-        fechas[0] = LocalDate.parse(scanner.next());
-        scanner.nextLine();
-        System.out.println("Introduzca la fecha de fin (YYYY-MM-DD):");
-        fechas[1] = LocalDate.parse(scanner.next());
-        scanner.nextLine();
-        return fechas;
-    }
-
-    // Método para mostrar una inscripción
-    public void mostrarInscripcion(InscripcionesModelo inscripcion) {
-        System.out.println("---------------");
-        System.out.println("Número de Socio: " + inscripcion.getSocio().getN_socio());
-        System.out.println("Nombre: " + inscripcion.getSocio().getNombre());
-        System.out.println("Fecha de Excursión: " + inscripcion.getExcursion().getFecha());
-        System.out.println("Descripción: " + inscripcion.getExcursion().getDescripcion());
-        System.out.println("Importe: " + inscripcion.getExcursion().getPrecio());
-        System.out.println("---------------");
-    }
-
     public int agregarSocioInsc(){
         System.out.println("Añadiendo nuevo socio: ");
         System.out.println("Qué tipo de socio desea añadir?");
@@ -100,6 +74,14 @@ public class InscripcionesVista {
         return opcion;
     }
 
+    public SociosModelo listarSocios(){
+        System.out.println("Seleccione el socio para mostrar sus inscripciones: ");
+        sociosVista.mostrarSocios();
+        System.out.println("Íngrese el código del socio: ");
+        int n_socio = scanner.nextInt();
+        scanner.nextLine();
+        return sociosControlador.obtenerSocioPorCodigo(n_socio);
+    }
     // Método para mostrar un mensaje
     public void mostrarMensaje(String mensaje) {
         System.out.println(mensaje);

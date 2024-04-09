@@ -39,9 +39,9 @@ public class Datos {
         FederacionesModelo fedFEDME = new FederacionesModelo("B001", "FEDME");
 
         //Creamos instancias para tener socios ya registrados en el programa
-        SocioEstandarModelo socioEst = new SocioEstandarModelo(1, "Guillem", "53316605Y", seguroCompleto);
-        SociosFederadosModelo socioFed = new SociosFederadosModelo(2, "Sergi", "45678925J", fedFEDME);
-        SocioInfantilModelo socioInf = new SocioInfantilModelo(3, "Andrea", socioEst);
+        SocioEstandarModelo socioEst = new SocioEstandarModelo("Guillem", "53316605Y", seguroCompleto);
+        SociosFederadosModelo socioFed = new SociosFederadosModelo("Sergi", "45678925J", fedFEDME);
+        SocioInfantilModelo socioInf = new SocioInfantilModelo("Andrea", socioEst);
 
         // Agregar elementos a los arrays de datos según sea necesario
         excursiones.add(new ExcursionesModelo("A190", "Montaña", LocalDate.of(2024, 3, 28), 3, 120));

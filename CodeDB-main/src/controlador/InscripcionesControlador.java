@@ -48,9 +48,9 @@ public class InscripcionesControlador {
     // Método para agregar una inscripción solicitando datos al usuario
     private void agregarInscripcion() {
         System.out.println("Añadiendo inscripción...");
-        int nInscripcion = vistaInsc.solicitarNumeroInscripcion();
         SociosModelo socio = vistaInsc.solicitarSocio();
         ExcursionesModelo excursion = vistaInsc.solicitarExcursion();
+        LocalDate fechaInscripcion = LocalDate.now();
         if (socio == null) {
             //Si el socio no existe solicitamos sus datos para añadirlo a la base de datos
             int opcion = vistaInsc.agregarSocioInsc();
@@ -73,14 +73,14 @@ public class InscripcionesControlador {
             }
             socio = datos.getListaSocios().get(datos.getListaSocios().size() - 1); // Obtener el último socio agregado
         }
-        InscripcionesModelo inscripcion = new InscripcionesModelo(nInscripcion, socio, excursion);
+        InscripcionesModelo inscripcion = new InscripcionesModelo(socio, excursion, fechaInscripcion);
         datos.getInscripciones().add(inscripcion); // Agregar la inscripción a la lista de inscripciones en Datos
         System.out.println("Inscripción añadida correctamente.");
     }
 
     public void mostrarInscripcion() {
         // Obtener el socio seleccionado
-        SociosModelo socioSeleccionado = vistaInsc.solicitarSocio();
+        SociosModelo socioSeleccionado = vistaInsc.listarSocios();
 
         // Verificar si se seleccionó un socio válido
         if (socioSeleccionado != null) {
@@ -98,7 +98,9 @@ public class InscripcionesControlador {
                 System.out.println("Inscripciones de " + socioSeleccionado.getNombre() + ":");
                 for (InscripcionesModelo inscripcion : inscripcionesSocio) {
                     System.out.println("Número de Inscripción: " + inscripcion.getN_inscripcion());
+                    System.out.println("Fecha de Inscripción: " + inscripcion.getFechaInscripcion());
                     System.out.println("Excursión: " + inscripcion.getExcursion().getDescripcion());
+                    System.out.println("Fecha de la excursión: " + inscripcion.getExcursion().getFecha());
                     System.out.println("--------------------");
                 }
             } else {

@@ -2,13 +2,14 @@ package modelo;
 
 public class SociosModelo {
     //Atributos
+    private static int ultimoNumeroSocio = 1;
     int n_socio;
     String nombre;
 
     //Constructor
 
-    public SociosModelo(int n_socio, String nombre) {
-        this.n_socio = n_socio;
+    public SociosModelo(String nombre) {
+        this.n_socio = ultimoNumeroSocio++;
         this.nombre = nombre;
     }
 
