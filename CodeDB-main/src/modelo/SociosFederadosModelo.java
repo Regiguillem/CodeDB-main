@@ -4,10 +4,10 @@ import modelo.SociosModelo;
 
 public class SociosFederadosModelo extends SociosModelo {
     //Atributos
-    String nif;
-    FederacionesModelo federacion;
-    int descuento_cuota;
-    int descuento_exc;
+    private String nif;
+    private FederacionesModelo federacion;
+    private int descuento_cuota;
+    private int descuento_exc;
 
     //Constructor
 

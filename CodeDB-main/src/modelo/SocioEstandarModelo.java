@@ -2,8 +2,8 @@ package modelo;
 
 public class SocioEstandarModelo extends SociosModelo {
     //Atributos
-    String nif;
-    SeguroModelo seguro;
+    private String nif;
+    private SeguroModelo seguro;
 
     //Constructor
 

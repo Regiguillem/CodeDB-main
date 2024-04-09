@@ -195,5 +195,24 @@ public class SociosVista {
             System.out.println("------------------------------------------");
         }
     }
+
+    public SociosModelo seleccionarSocio(ArrayList<SociosModelo> socios) {
+        // Mostrar la lista de socios disponibles para seleccionar
+        System.out.println("Seleccione un socio:");
+
+        for (int i = 0; i < socios.size(); i++) {
+            System.out.println((i + 1) + ". " + socios.get(i).getNombre());
+        }
+
+        // Leer la selección del usuario
+        int opcion;
+        do {
+            System.out.print("Opción: ");
+            opcion = scanner.nextInt();
+        } while (opcion < 1 || opcion > socios.size());
+
+        // Devolver el socio seleccionado
+        return socios.get(opcion - 1);
+    }
     //Faltan argumentos que pedir al usuario?
 }

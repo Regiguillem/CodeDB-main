@@ -4,8 +4,8 @@ import modelo.SociosModelo;
 
 public class SocioInfantilModelo extends SociosModelo {
     //Atributos
-    SociosModelo n_socioPadreMadre;
-    int descuento_cuota;
+    private SociosModelo n_socioPadreMadre;
+    private int descuento_cuota;
 
     //Constructor
 

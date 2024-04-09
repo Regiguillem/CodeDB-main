@@ -5,11 +5,11 @@ import java.time.LocalDate;
 public class ExcursionesModelo {
 
     // atributos
-    public String codigo;
-    public String descripcion;
-    public LocalDate fecha;
-    public int n_dias;
-    public double precio;
+    private String codigo;
+    private String descripcion;
+    private LocalDate fecha;
+    private int n_dias;
+    private double precio;
 
     //constructor
     public ExcursionesModelo(String codigo, String descripcion, LocalDate fecha, int n_dias, double precio) {

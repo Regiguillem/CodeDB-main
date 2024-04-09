@@ -3,8 +3,9 @@ package modelo;
 public class SociosModelo {
     //Atributos
     private static int ultimoNumeroSocio = 1;
-    int n_socio;
-    String nombre;
+    private int n_socio;
+    private String nombre;
+    private SeguroModelo seguro;
 
     //Constructor
 
@@ -29,5 +30,13 @@ public class SociosModelo {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public SeguroModelo getSeguro() {
+        return seguro;
+    }
+
+    public void setSeguro(SeguroModelo seguro) {
+        this.seguro = seguro;
     }
 }

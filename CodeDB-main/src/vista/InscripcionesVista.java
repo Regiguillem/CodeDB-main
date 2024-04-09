@@ -31,7 +31,7 @@ public class InscripcionesVista {
     public int mostrarMenu() {
         System.out.println("--GESTIÓN INSCRIPCIONES--");
         System.out.println("1. Añadir Inscripción");
-        System.out.println("2. Mostrar Inscripciones con filtro por fecha y/o socios");
+        System.out.println("2. Mostrar Inscripciones con filtro por socio");
         System.out.println("3. Eliminar Inscripción");
         System.out.println("0. Volver al menú principal");
         System.out.println("Seleccione una opción: ");

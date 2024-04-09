@@ -6,13 +6,14 @@ import java.time.LocalDate;
 
 public class FacturaModelo {
     //Atributos
+    private static int facturaID = 1;
     int id;
     LocalDate fecha;
     double importe;
     SociosModelo socio;
     //Constructor
-    public FacturaModelo(int id, LocalDate fecha, double importe, SociosModelo socio) {
-        this.id = id;
+    public FacturaModelo(LocalDate fecha, double importe, SociosModelo socio) {
+        this.id = facturaID++;
         this.fecha = fecha;
         this.importe = importe;
         this.socio = socio;

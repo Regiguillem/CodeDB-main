@@ -3,6 +3,7 @@ package controlador;
 import modelo.*;
 import vista.SociosVista;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SociosControlador {
@@ -35,12 +36,12 @@ public class SociosControlador {
                     agregarSocioInfantil();
                     break;
                 case 5:
-                    //eliminarSocio();
+                    eliminarSocio();
                     break;
                 case 6:
                     vistaSoc.mostrarSociosPorTipo();
                 case 7:
-                    //mostrarFacturaMensualFiltroSocio();
+                    mostrarFacturaMensualFiltroSocio();
                 case 0:
                     System.out.println("Saliendo del menú de Gestión de Socios...");
                     return true;
@@ -194,6 +195,135 @@ public class SociosControlador {
             }
         }
         return null; // Devuelve null si no se encuentra ningún socio con el código proporcionado
+    }
+
+    public void eliminarSocio() {
+        // Obtener todos los socios
+        ArrayList<SociosModelo> socios = datos.getListaSocios();
+
+        // Mostrar los socios para que el usuario elija cuál eliminar
+        System.out.println("Socios disponibles para eliminar:");
+        for (SociosModelo socio : socios) {
+            System.out.println("Número de Socio: " + socio.getN_socio() + ", Nombre: " + socio.getNombre());
+        }
+
+        // Solicitar al usuario que seleccione un socio para eliminar
+        System.out.println("Seleccione el número de socio que desea eliminar (0 para cancelar): ");
+        int numeroSocio = vistaSoc.solicitarNumeroSocio();
+
+        // Verificar si el usuario canceló la operación
+        if (numeroSocio == 0) {
+            System.out.println("Operación cancelada.");
+            return;
+        }
+
+        // Buscar el socio correspondiente al número seleccionado
+        SociosModelo socioSeleccionado = null;
+        for (SociosModelo socio : socios) {
+            if (socio.getN_socio() == numeroSocio) {
+                socioSeleccionado = socio;
+                break;
+            }
+        }
+
+        // Verificar si se encontró el socio seleccionado
+        if (socioSeleccionado != null) {
+            // Verificar si el socio está inscrito en alguna excursión
+            boolean inscrito = false;
+            for (InscripcionesModelo inscripcion : datos.getInscripciones()) {
+                if (inscripcion.getSocio().equals(socioSeleccionado)) {
+                    inscrito = true;
+                    break;
+                }
+            }
+            // Si el socio no está inscrito en ninguna excursión, se elimina
+            if (!inscrito) {
+                socios.remove(socioSeleccionado);
+                System.out.println("Socio eliminado correctamente.");
+            } else {
+                System.out.println("No se puede eliminar el socio porque está inscrito en al menos una excursión.");
+            }
+        } else {
+            System.out.println("No se encontró ningún socio con el número especificado.");
+        }
+    }
+
+    public void mostrarFacturaMensualFiltroSocio() {
+        // Obtener la lista de socios desde el modelo (suponiendo que tienes un método en Datos para obtenerlos)
+        ArrayList<SociosModelo> socios = datos.getListaSocios();
+
+        // Solicitar al usuario que seleccione un socio
+        SociosModelo socioSeleccionado = vistaSoc.seleccionarSocio(socios);
+
+        // Verificar si se seleccionó un socio válido
+        if (socioSeleccionado != null) {
+            // Llamar al método mostrarFacturaMensualFiltroSocio con el socio seleccionado
+            mostrarFacturaMensualFiltroSocio(socioSeleccionado);
+        } else {
+            System.out.println("No se seleccionó ningún socio.");
+        }
+    }
+
+    private void mostrarFacturaMensualFiltroSocio(SociosModelo socio) {
+        // Calcular el total a pagar por la cuota mensual
+        double totalCuotaMensual = calcularCuotaMensual(socio);
+
+        // Calcular el total a pagar por las excursiones realizadas
+        double totalExcursiones = calcularTotalExcursiones(socio);
+
+        // Calcular el total a pagar
+        double totalPagar = totalCuotaMensual + totalExcursiones;
+
+        // Mostrar la factura
+        System.out.println("Factura mensual para el socio " + socio.getNombre() + ":");
+        System.out.println("Fecha: " + LocalDate.now());
+        System.out.println("Cuota Mensual: " + totalCuotaMensual);
+        System.out.println("Total Excursiones: " + totalExcursiones);
+        System.out.println("Total a Pagar: " + totalPagar);
+    }
+
+    private double calcularCuotaMensual(SociosModelo socio) {
+        double cuotaBaseMensual = socio.getSeguro().getPrecio();
+        double descuentoCuota = 0;
+
+        if (socio instanceof SociosFederadosModelo) {
+            // Socio federado tiene descuento del 5%
+            descuentoCuota = cuotaBaseMensual * ((SociosFederadosModelo) socio).getDescuento_cuota();
+        } else if (socio instanceof SocioInfantilModelo) {
+            // Socio infantil tiene descuento del 50%
+            descuentoCuota = cuotaBaseMensual * ((SocioInfantilModelo) socio).getDescuento_cuota();
+        }
+
+        return cuotaBaseMensual - descuentoCuota;
+    }
+
+    private double calcularTotalExcursiones(SociosModelo socio) {
+        double totalExcursiones = 0;
+        ArrayList<InscripcionesModelo> inscripciones = datos.getInscripciones();
+        LocalDate fechaActual = LocalDate.now();
+        int mesActual = fechaActual.getMonthValue();
+
+        for (InscripcionesModelo inscripcion : inscripciones) {
+            if (inscripcion.getSocio().equals(socio)) { // Verificar si la inscripción pertenece al socio
+                ExcursionesModelo excursion = inscripcion.getExcursion();
+                LocalDate fechaExcursion = excursion.getFecha();
+                int mesExcursion = fechaExcursion.getMonthValue();
+
+                // Verificar si la excursión es del mes actual
+                if (mesExcursion == mesActual) {
+                    double precioExcursion = excursion.getPrecio();
+
+                    if (socio instanceof SociosFederadosModelo) {
+                        // Socio federado tiene descuento del 10%
+                        precioExcursion *= ((SociosFederadosModelo) socio).getDescuento_exc();
+                    }
+
+                    totalExcursiones += precioExcursion;
+                }
+            }
+        }
+
+        return totalExcursiones;
     }
     // Otros métodos para manejar las demás opciones del menú de socios
 }

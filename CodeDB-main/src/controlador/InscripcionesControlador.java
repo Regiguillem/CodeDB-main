@@ -33,7 +33,7 @@ public class InscripcionesControlador {
                     mostrarInscripcion();
                     break;
                 case 3:
-                    //eliminarInscripcion();
+                    eliminarInscripcion();
                     break;
                 case 0:
                     System.out.println("Volviendo al menú principal...");
@@ -110,5 +110,54 @@ public class InscripcionesControlador {
     }
 
     // Método para eliminar una inscripción
+    public void eliminarInscripcion() {
+        // Obtener todas las inscripciones
+        ArrayList<InscripcionesModelo> inscripciones = datos.getInscripciones();
 
+        // Mostrar las inscripciones para que el usuario elija cuál eliminar
+        System.out.println("Inscripciones disponibles para eliminar:");
+        for (InscripcionesModelo inscripcion : inscripciones) {
+            // Verificar si la fecha de inscripción es anterior a la fecha de la excursión
+            if (inscripcion.getFechaInscripcion().isBefore(inscripcion.getExcursion().getFecha())) {
+                System.out.println("Número de Inscripción: " + inscripcion.getN_inscripcion());
+                System.out.println("Fecha de Inscripción: " + inscripcion.getFechaInscripcion());
+                System.out.println("Excursión: " + inscripcion.getExcursion().getDescripcion());
+                System.out.println("Fecha de la excursión: " + inscripcion.getExcursion().getFecha());
+                System.out.println("--------------------");
+            }
+        }
+
+        // Solicitar al usuario que seleccione una inscripción para eliminar
+        System.out.println("Seleccione el número de inscripción que desea eliminar (0 para cancelar): ");
+        int numeroInscripcion = vistaInsc.solicitarNumeroInscripcion();
+
+        // Verificar si el usuario canceló la operación
+        if (numeroInscripcion == 0) {
+            System.out.println("Operación cancelada.");
+            return;
+        }
+
+        // Buscar la inscripción correspondiente al número seleccionado
+        InscripcionesModelo inscripcionSeleccionada = null;
+        for (InscripcionesModelo inscripcion : inscripciones) {
+            if (inscripcion.getN_inscripcion() == numeroInscripcion) {
+                inscripcionSeleccionada = inscripcion;
+                break;
+            }
+        }
+
+        // Verificar si se encontró la inscripción seleccionada
+        if (inscripcionSeleccionada != null) {
+            // Verificar si la fecha de la excursión ya ha pasado
+            if (inscripcionSeleccionada.getExcursion().getFecha().isBefore(LocalDate.now())) {
+                System.out.println("La fecha de la excursión ya ha pasado. No se puede eliminar la inscripción.");
+            } else {
+                // Eliminar la inscripción
+                inscripciones.remove(inscripcionSeleccionada);
+                System.out.println("Inscripción eliminada correctamente.");
+            }
+        } else {
+            System.out.println("No se encontró ninguna inscripción con el número especificado.");
+        }
+    }
 }

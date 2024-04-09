@@ -43,9 +43,17 @@ public class Datos {
         SociosFederadosModelo socioFed = new SociosFederadosModelo("Sergi", "45678925J", fedFEDME);
         SocioInfantilModelo socioInf = new SocioInfantilModelo("Andrea", socioEst);
 
+        //Añadimos Excursiones al programa para trabajar con ellas
+        ExcursionesModelo excursion1 = new ExcursionesModelo("A190", "Montaña", LocalDate.of(2024, 3, 28), 3, 120);
+        ExcursionesModelo excursion2 = new ExcursionesModelo("B200", "Playa", LocalDate.of(2024, 4, 30), 1, 50);
+        ExcursionesModelo excursionError = new ExcursionesModelo("C001", "Cadaqués", LocalDate.of(2024, 01, 01), 2, 80);
+        //Creamos una inscripción para comprobar errores
+        InscripcionesModelo inscripcion1 = new InscripcionesModelo(socioEst, excursionError, LocalDate.of(2024, 01, 30));
+        InscripcionesModelo inscripcion2 = new InscripcionesModelo(socioFed,excursion1, LocalDate.of(2024, 01, 30));
         // Agregar elementos a los arrays de datos según sea necesario
-        excursiones.add(new ExcursionesModelo("A190", "Montaña", LocalDate.of(2024, 3, 28), 3, 120));
-        excursiones.add(new ExcursionesModelo("B200", "Playa", LocalDate.of(2024, 4, 30), 1, 50));
+        excursiones.add(excursion1);
+        excursiones.add(excursion2);
+        excursiones.add(excursionError);
         federaciones.add(fedFEEC);
         federaciones.add(fedFEDME);
         seguros.add(seguroCompleto);
@@ -56,6 +64,8 @@ public class Datos {
         listaSocios.add(socioEst);
         listaSocios.add(socioFed);
         listaSocios.add(socioInf);
+        inscripciones.add(inscripcion1);
+        inscripciones.add(inscripcion2);
     }
 
     //Getters

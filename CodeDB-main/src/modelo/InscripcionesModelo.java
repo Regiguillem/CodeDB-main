@@ -7,10 +7,10 @@ import java.time.LocalDate;
 public class InscripcionesModelo {
     //Atributos
     private static int ultimaInscripcion = 1;
-    int n_inscripcion;
-    SociosModelo socio;
-    ExcursionesModelo excursion;
-    LocalDate fechaInscripcion;
+    private int n_inscripcion;
+    private SociosModelo socio;
+    private ExcursionesModelo excursion;
+    private LocalDate fechaInscripcion;
 
     //Constructor
 

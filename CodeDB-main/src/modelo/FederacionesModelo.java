@@ -2,8 +2,8 @@ package modelo;
 
 public class FederacionesModelo {
     //Atributos
-    String codigo;
-    String nombre;
+    private String codigo;
+    private String nombre;
 
     //Constructor
 

@@ -2,8 +2,8 @@ package modelo;
 
 public class SeguroBasicoModelo extends SeguroModelo {
     //Atributos
-    String tipo;
-    double precio;
+    private String tipo;
+    private double precio;
 
     //Constructor
     public SeguroBasicoModelo() {
