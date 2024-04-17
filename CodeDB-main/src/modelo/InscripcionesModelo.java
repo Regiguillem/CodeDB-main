@@ -54,4 +54,23 @@ public class InscripcionesModelo {
     public void setFechaInscripcion(LocalDate fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
     }
+
+//Este método permitirá controlar cómo se representa una instancia de InscripcionesModelo
+// como una cadena de texto.
+    @Override
+    public String toString() {
+        return "InscripcionesModelo{" +
+                "n_inscripcion=" + n_inscripcion +
+                ", socio=" + socio +
+                ", excursion=" + excursion +
+                ", fechaInscripcion=" + fechaInscripcion +
+                '}';
+    }
+
+
+
 }
+
+
+
+
