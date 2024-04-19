@@ -1,5 +1,6 @@
 package modelo;
 
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -79,4 +80,7 @@ public class InscripcionesModeloDAO implements GenericDAO<InscripcionesModelo, S
         // Implementa la lógica para mapear una fila de ResultSet a un objeto InscripcionesModelo
     }
 
+=======
+public class InscripcionesModeloDAO {
+>>>>>>> origin/master
 }
