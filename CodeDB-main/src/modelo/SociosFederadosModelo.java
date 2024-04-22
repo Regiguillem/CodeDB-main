@@ -50,4 +50,7 @@ public class SociosFederadosModelo extends SociosModelo {
     public void setDescuento_exc(double descuento_exc) {
         this.descuento_exc = descuento_exc;
     }
+    public String tipoSocio() {
+        return "Federado";
+    }
 }

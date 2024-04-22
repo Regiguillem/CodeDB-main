@@ -42,18 +42,17 @@ public class InscripcionesControlador {
     //PASAR DE ARRAYLIST A UTILIZAR JDBC
 
     // Atributos para relacionar la vista con el ArrayList de inscripciones
- //   private InscripcionesVista vistaInsc;
+    private InscripcionesVista vistaInsc;
 
- //   private Datos datos = Datos.getInstance();
     // Constructor
- //   public InscripcionesControlador() {
- //       this.vistaInsc = new InscripcionesVista();
+    public InscripcionesControlador() {
+        this.vistaInsc = new InscripcionesVista();
+    }
 
-
-//método para obtener la instancia de InscripcionesVista
-  //  public InscripcionesVista obtenerVistaInscripciones() {
-  //      return this.vistaInsc;
-
+    // Método para obtener la instancia de InscripcionesVista
+    public InscripcionesVista obtenerVistaInscripciones() {
+        return this.vistaInsc;
+    }
 
 
 

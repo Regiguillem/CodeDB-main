@@ -3,23 +3,20 @@ package vista;
 import controlador.ExcursionesControlador;
 import controlador.SociosControlador;
 import controlador.InscripcionesControlador;
-import modelo.ExcursionesModelo;
-import modelo.InscripcionesModelo;
-import modelo.SociosModelo;
-
-import modelo.Datos;
+import modelo.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
 
 public class InscripcionesVista {
 
-    private Scanner scanner;
-    private ExcursionesControlador excursionesControlador;
-    private SociosControlador sociosControlador;
-    private SociosVista sociosVista;
-    private Datos datos = Datos.getInstance();
+    private final Scanner scanner;
+    private final ExcursionesControlador excursionesControlador;
+    private final SociosControlador sociosControlador;
+    private final SociosVista sociosVista;
+    private final Datos datos = Datos.getInstance();
 
     public InscripcionesVista() {
         this.scanner = new Scanner(System.in);
@@ -99,10 +96,16 @@ public class InscripcionesVista {
                 default:
                     System.out.println("Opción no válida.");
             }
-            socio = datos.getListaSocios().get(datos.getListaSocios().size() - 1); // Obtener el último socio agregado
-        }
+            List<SociosModelo> socios = datos.getSociosDAO().obtenerTodos();
+            if (!socios.isEmpty()) {
+                socio = socios.get(socios.size() - 1);
+            } else {
+                // Manejar el caso de que la lista de socios esté vacía
+                               // Aquí se asigna un valor predeterminado a socio
+                socio = null; // o socio = new SociosModelo(); dependiendo de lo que sea apropiado en tu aplicación
+            }        }
         InscripcionesModelo inscripcion = new InscripcionesModelo(socio, excursion, fechaInscripcion);
-        datos.getInscripciones().add(inscripcion); // Agregar la inscripción a la lista de inscripciones en Datos
+        datos.getInscripcionesDAO().insertar(inscripcion); // Agregar la inscripción a la lista de inscripciones en Datos
         System.out.println("Inscripción añadida correctamente.");
     }
 
@@ -114,8 +117,8 @@ public class InscripcionesVista {
         // Verificar si se seleccionó un socio válido
         if (socioSeleccionado != null) {
             // Obtener la lista de inscripciones del socio seleccionado
-            ArrayList<InscripcionesModelo> inscripcionesSocio = new ArrayList<>();
-            for (InscripcionesModelo inscripcion : datos.getInscripciones()) {
+            List<InscripcionesModelo> inscripcionesSocio = datos.getInscripcionesDAO().obtenerTodos();
+            for (InscripcionesModelo inscripcion : datos.getInscripcionesDAO()) {
                 if (inscripcion.getSocio().equals(socioSeleccionado)) {
                     inscripcionesSocio.add(inscripcion);
                 }
@@ -141,8 +144,7 @@ public class InscripcionesVista {
     // Método para eliminar una inscripción
     public void eliminarInscripcion() {
         // Obtener todas las inscripciones
-        ArrayList<InscripcionesModelo> inscripciones = datos.getInscripciones();
-
+        InscripcionesModeloDAO inscripcionesDAO = Datos.getInstance().getInscripcionesDAO();
         // Mostrar las inscripciones para que el usuario elija cuál eliminar
         System.out.println("Inscripciones disponibles para eliminar:");
         for (InscripcionesModelo inscripcion : inscripciones) {
@@ -155,14 +157,15 @@ public class InscripcionesVista {
                 System.out.println("--------------------");
             }
         }
+    }
 
         // Solicitar al usuario que seleccione una inscripción para eliminar
         System.out.println("Seleccione el número de inscripción que desea eliminar (0 para cancelar): ");
         InscripcionesControlador controlador = new InscripcionesControlador();
-        int numeroInscripcion = controlador.obtenerVistaInscripciones().solicitarNumeroInscripcion();
+        int n_inscripcion = controlador.obtenerVistaInscripciones().solicitarNumeroInscripcion();
 
         // Verificar si el usuario canceló la operación
-        if (numeroInscripcion == 0) {
+        if (n_inscripcion == 0) {
             System.out.println("Operación cancelada.");
             return;
         }

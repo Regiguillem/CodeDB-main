@@ -1,6 +1,6 @@
 package modelo;
 
-public class SociosModelo {
+public abstract class SociosModelo {
     //Atributos
     private static int ultimoNumeroSocio = 1;
     private int n_socio;
@@ -46,6 +46,7 @@ public class SociosModelo {
     public double getCuotaMensual() {
         return cuotaMensual;
     }
+    public abstract String tipoSocio();
 
     public void setCuotaMensual(double cuotaMensual) {
         this.cuotaMensual = cuotaMensual;

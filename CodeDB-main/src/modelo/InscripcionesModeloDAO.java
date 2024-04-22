@@ -1,6 +1,5 @@
 package modelo;
 
-<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +8,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import util.DataBaseConnection;
+import java.time.LocalDate;
+
+
 import modelo.InscripcionesModelo;
 
 public class InscripcionesModeloDAO implements GenericDAO<InscripcionesModelo, String> {
@@ -18,10 +20,24 @@ public class InscripcionesModeloDAO implements GenericDAO<InscripcionesModelo, S
     private static final String INSERT = "INSERT INTO inscripciones (socio_id, excursion_id, fecha_inscripcion) VALUES (?, ?, ?)";
 
 
-    // Método para obtener una inscripción por su ID
     @Override
     public InscripcionesModelo obtenerPorId(String id) {
+        InscripcionesModelo inscripcion = null;
         // Implementa la lógica para obtener una inscripción por su ID
+        String SELECT_BY_ID = "SELECT * FROM inscripciones WHERE id = ?";
+        try (Connection connection = DataBaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
+            statement.setString(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    inscripcion = mapearDesdeResultSet(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al obtener la inscripción por ID", e);
+        }
+        return inscripcion;
     }
 
 
@@ -76,11 +92,42 @@ public class InscripcionesModeloDAO implements GenericDAO<InscripcionesModelo, S
 
 
     // Método para mapear una fila de ResultSet a un objeto InscripcionesModelo
+
     private InscripcionesModelo mapearDesdeResultSet(ResultSet resultSet) throws SQLException {
-        // Implementa la lógica para mapear una fila de ResultSet a un objeto InscripcionesModelo
+        try {
+            int n_inscripcion = resultSet.getInt("n_inscripcion");
+
+            // Obtener el objeto SocioModelo correspondiente al ID del socio en el ResultSet
+            SociosModeloDAO socioModeloDAO = new SociosModeloDAO();
+            SociosModelo socio = socioModeloDAO.obtenerPorId(resultSet.getString("socio"));
+
+            // Obtener el objeto ExcursionModelo correspondiente al código de la excursión en el ResultSet
+            ExcursionesModeloDAO excursionModeloDAO = new ExcursionesModeloDAO();
+            ExcursionesModelo excursion = excursionModeloDAO.obtenerPorCodigo(resultSet.getString("excursion"));
+
+            LocalDate fechaInscripcion = resultSet.getDate("fechaInscripcion").toLocalDate();
+
+            return new InscripcionesModelo(n_inscripcion, socio, excursion, fechaInscripcion);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al mapear la inscripción desde ResultSet", e);
+        }
     }
 
-=======
-public class InscripcionesModeloDAO {
->>>>>>> origin/master
+
+
+        //método para mapear un objeto inscripcionesmodeloDAO A UN PREPAREDsTATEMENT
+    //Un PreparedStatement es una interfaz en Java que representa una sentencia SQL precompilada
+    private void mapearAStatement(PreparedStatement statement, InscripcionesModelo inscripcion) throws SQLException {
+        statement.setInt(1, inscripcion.getSocio().getN_socio());
+        statement.setString(2, inscripcion.getExcursion().getCodigo());
+        statement.setDate(3, java.sql.Date.valueOf(inscripcion.getFechaInscripcion()));
+
+    }
+
+
 }
+
+
+
+
