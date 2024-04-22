@@ -31,4 +31,7 @@ public class SocioEstandarModelo extends SociosModelo {
     public void setSeguro(SeguroModelo seguro) {
         this.seguro = seguro;
     }
+    public String tipoSocio() {
+        return "Estandar";
+    }
 }

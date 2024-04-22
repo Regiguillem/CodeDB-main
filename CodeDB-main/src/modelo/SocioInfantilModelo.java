@@ -30,4 +30,7 @@ public class SocioInfantilModelo extends SociosModelo {
     public void setDescuento_cuota(double descuento_cuota) {
         this.descuento_cuota = descuento_cuota;
     }
+    public String tipoSocio() {
+        return "Infantil";
+    }
 }
