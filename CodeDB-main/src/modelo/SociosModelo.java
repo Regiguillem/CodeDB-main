@@ -19,7 +19,7 @@ public abstract class SociosModelo {
 
     //Getters y Setters
 
-    public int getN_socio() {
+    public String getN_socio() {
         return n_socio;
     }
 
